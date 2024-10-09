@@ -1,6 +1,6 @@
 <h1>Terraform Infrastructure Repository</h1>
 
-<p>This repository contains Terraform code to provision and manage cloud infrastructure. It is structured to support multiple environments (development, staging, production) and follows a modular approach to organize infrastructure components.</p>
+<p>This repository contains Terraform code to provision and manage cloud infrastructure. It is structured to support multiple environments (development, qa, staging, production) and follows a modular approach to organize infrastructure components.</p>
 
 <h2>Directory Layout</h2>
 
@@ -10,9 +10,11 @@
 │   │   ├── main.tf        # Environment-specific Terraform configuration
 │   │   ├── variables.tf   # Environment-specific variables
 │   │   └── outputs.tf     # Environment-specific outputs
+│   ├── qa                 # qa environment  
 │   ├── staging            # Staging environment
 │   └── prod               # Production environment
 │
+├── products               # To define segregation for different product 
 ├── modules                # Reusable Terraform modules for different infrastructure components
 │   ├── vpc                # Module for provisioning a VPC
 │   │   ├── vpc.tf         # VPC resource definitions (renamed from main.tf)
