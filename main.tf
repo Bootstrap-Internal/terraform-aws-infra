@@ -1,8 +1,9 @@
-resource "aws_instance" "app_server" {
-  ami           = "ami-06f855639265b5541"
-  instance_type = "t2.micro"
-
-  tags = {
-    Name = "zesn-ec2"
+terraform {
+  backend "s3" {
+    bucket         = "s3-rnt-core-tf-state-390844737705"  
+    key            = "rnt/datahub/api/terraform.tfstate"      
+    region         = "us-east-1"                           
+    encrypt        = true                            
+    dynamodb_table = "dynamodb-rnt-core-tf-state-lock"          
   }
 }

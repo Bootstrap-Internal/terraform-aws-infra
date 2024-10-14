@@ -38,6 +38,12 @@
 └── README.md              # Project documentation
 </code></pre>
 
+<h2>Apply the Terraform Configuration</h2>
+<code>terraform init</code>
+
+<h2>Plan the deployment</h2>
+<code>terraform apply</code>
+
 <h2>File Naming Conventions</h2>
 
 <ul>
