@@ -1,1 +1,0 @@
-# Placeholder for ec2 variable
