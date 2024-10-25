@@ -1,0 +1,96 @@
+ecs:
+  vpc_id                        : "vpc-00c93211486e5634d"
+  subnet_ids                    : ["subnet-051d912881d32fd63", "subnet-06774db1a3ef23d14"]
+  app_name                      : "rnt-ecs-app"
+  log_retention_in_days         : 3
+  cluster_id                    : "rnt-api-cluster"
+  cluster_name                  : "rnt-api-cluster"
+  desired_count                 : 2
+  launch_type                   : "FARGATE"        #"FARGATE"
+  container_port                : 80
+  security_group_ids            : [""]
+  lb_listener                   : "string"
+  assign_public_ip              : true
+  share_tgw                     : true
+  ecs_task_execution_role_name  : "string"
+  aws_sns_topic_alarm_topic_arn : "string"
+  task_definition : ""
+  task_cpu                      : 256
+  task_memory                   : 512
+  host_port                     : 80
+  ecs_task_execution_role_arn   : "string"
+  log_group_region              : "us-east-1"
+  
+  aws_lb_target_group : object({
+  port                          : 80      #80
+  protocol                      : "TCP"      #"TCP"
+  target_type                   : "string"      #"ip"
+  health_check: 
+      - enabled                     : true        #true
+        interval                    : 30      #30
+        path                        : "/"      #"/"
+        protocol                    : "HTTP"      #"HTTP"
+        timeout                     : 5      #5
+        healthy_threshold           : 2      #2
+        unhealthy_threshold         : 2      #2
+        matcher                     : 200      #"200"
+
+  aws_lb_listener : ""
+  load_balancer_arn             : "string"
+  protocol                      : "TCP"      #"TCP"
+  port                          : "80"      #"80"
+
+
+  vpc:
+      - region: "us-east-1"
+        name: "use1-vpc-shs-dev"
+        vpn_cidr: "10.2.0.0/16"
+        private_subnets: [
+          "10.2.1.0/24",
+          "10.2.2.0/24",
+          "10.2.3.0/24"
+        ]
+        public_subnets: [
+          "10.2.101.0/24",
+          "10.2.102.0/24",
+          "10.2.103.0/24"
+        ]
+        enable_nat_gateway: true
+        single_nat_gateway: true
+        Owner: "rnt"
+        Environment: "dev"
+        vpc_name: "use1-vpc-shs-dev"
+        manage_default_network_acl: false
+        default_network_acl_tags: { }
+        manage_default_route_table: false
+        default_route_table_tags: { }
+        manage_default_security_group: false
+        default_security_group_tags: { }
+        enable_dns_hostnames: false
+        enable_dns_support: true
+        enable_classiclink: false
+        enable_classiclink_dns_support: false
+        customer_gateways: { }
+        enable_vpn_gateway: false
+        enable_dhcp_options: false
+        dhcp_options_domain_name: false
+        dhcp_options_domain_name_servers: [ ]
+        enable_flow_log: false
+        create_flow_log_cloudwatch_log_group: false
+        create_flow_log_cloudwatch_iam_role: false
+        flow_log_max_aggregation_interval:
+    # IGW variables
+        create_igw: true
+        create_egress_only_igw: true
+        ig_name: "use1-igw-default-dev"
+
+
+  atch:
+    - vpc_name: "use1-vpc-shs-dev"
+      create_attachment: true
+      dns_support: false
+      ipv6_support: false
+      transit_gateway_default_route_table_association: true
+      transit_gateway_default_route_table_propagation: true
+      tgw_route_destination_cidr_block: "10.0.0.0/8"
+      transit_gateway_id: "tgw-0f7e507eb7b929580"
