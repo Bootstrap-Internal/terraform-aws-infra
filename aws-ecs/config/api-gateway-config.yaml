@@ -1,0 +1,26 @@
+api_gateway:
+  - api:
+      name: "core-api"
+      cors:
+        allow_origin: "*"
+        allow_headers: "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token"
+        allow_methods: "OPTIONS,GET,POST"      
+      methods:
+        - http_method: "GET"
+          authorization: "NONE"
+        #- http_method: "GET"
+        #  authorization: "NONE"
+      integrations:
+        - http_method: "GET"
+          integration_http_method: "GET"
+          type: "HTTP_PROXY"
+          #uri: "arn:aws:lambda:region:account-id:function:function-name"
+          uri: "http://"
+          connection_type: "VPC_LINK"
+          connection_id: "vpc-link-id"
+        #- http_method: "POST"
+        #  integration_http_method: "POST"
+        #  type: "AWS"
+        #  uri: "arn:aws:apigateway:region:sqs:path/queue-name"
+        #  connection_type: "INTERNET"
+        #  connection_id: "internet-id"

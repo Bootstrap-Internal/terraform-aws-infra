@@ -1,0 +1,88 @@
+ecs:
+  vpc_id: "vpc-0ea5f2c8c0344917a"
+  region: "us-east-1"
+  subnet_ids:
+    - "subnet-0965b4e108c972285"
+    - "subnet-031cdc3d091136af9"
+  app_name: "my-rnt-app"
+  ecr_repo_name: "my-app-repo"
+  image_tag: "latest"
+  ecs_service_name: "rnt-ecs-service"
+  log_retention_in_days: 30
+  cluster_id: "my-cluster-id"
+  cluster_name: "my-cluster"
+  desired_count: 2
+  launch_type: "FARGATE"
+  nlb_type: "network"
+  container_port: 80
+  api_nlb_name: "rnt-api-nlb"
+  security_group_ids:
+    - "sg-12345"
+    - "sg-67890"
+  lb_listener: "listener-12345"
+  assign_public_ip: false
+  share_tgw: false
+  ecs_task_execution_role_name: "ecsTaskExecutionRole"
+  aws_sns_topic_alarm_topic_arn: "arn:aws:sns:us-east-1:123456789012:alarm-topic"
+  vpc_endpoints:
+      - vpc_id: "vpc-0ea5f2c8c0344917a"
+        vpc_endpoint_type: "Interface"
+        service_name: "com.amazonaws.us-east-1.ecr.api"
+        subnet_ids:
+          - "subnet-0965b4e108c972285"
+          - "subnet-031cdc3d091136af9"
+        security_group_ids:
+          - "sg-12345"
+          - "sg-67890"
+      - vpc_id: "vpc-0ea5f2c8c0344917a"
+        vpc_endpoint_type: "Interface"
+        service_name: "com.amazonaws.us-east-1.ecr.dkr"
+        subnet_ids:
+          - "subnet-0965b4e108c972285"
+          - "subnet-031cdc3d091136af9" 
+  task_definition:
+    task_cpu: 256
+    task_memory: 512
+    host_port: 80
+    #ecs_task_execution_role_arn: "arn:aws:iam::123456789012:role/ecsTaskExecutionRole"
+    log_group_region: "us-east-1"
+  aws_lb:
+    api_lb_name: "rnt-api-nlb"
+    lb_type: "network"
+    lb_internal: false
+    enable_deletion_protection: false
+    subnet_ids:
+      - "subnet-0965b4e108c972285"
+      - "subnet-031cdc3d091136af9"    
+  aws_lb_target_group:
+    name: "rnt-api-taget-group"
+    port: 80
+    protocol: "TCP"
+    target_type: "ip"
+    health_check:
+      enabled: true
+      interval: 30
+      path: "/"
+      protocol: "HTTP"
+      timeout: 5
+      healthy_threshold: 2
+      unhealthy_threshold: 2
+      matcher: "200"
+  aws_lb_listener:
+    protocol: "TCP"
+    port: "80"
+    default_action:
+      type: "forward"
+api_gateway:
+  api:
+    name: "core-api"
+    api_gateway_methods:
+      http_method: "GET"
+      authorization: "NONE"
+    api_gateway_integrations:
+      http_method: "GET"
+      integration_http_method: "GET"
+      type: "HTTP_PROXY"
+      uri: "arn:aws:lambda:region:account-id:function:function-name"
+      connection_type: "VPC_LINK"
+      connection_id: "vpc-link-id"

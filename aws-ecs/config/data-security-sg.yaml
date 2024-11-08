@@ -1,0 +1,54 @@
+security_groups:
+  - name: "app-sg"
+    description: "Allow traffic to ECS tasks"
+    vpc_id: "vpc-0ea5f2c8c0344917a"
+    ingress:
+      - from_port: 80
+        to_port: 80
+        protocol: "tcp"
+        cidr_blocks:
+          - "0.0.0.0/0"
+    egress:
+      - from_port: 0
+        to_port: 0
+        protocol: "-1"
+        cidr_blocks:
+          - "0.0.0.0/0"
+    tags:
+      Name: "app-sg"
+  
+  - name: "elb-sg"
+    description: "Security group for ELB"
+    vpc_id: "vpc-0ea5f2c8c0344917a"
+    ingress:
+      - from_port: 80
+        to_port: 80
+        protocol: "tcp"
+        cidr_blocks:
+          - "0.0.0.0/0"
+    egress:
+      - from_port: 0
+        to_port: 0
+        protocol: "-1"
+        cidr_blocks:
+          - "0.0.0.0/0"
+    tags:
+      Name: "elb-sg"
+
+  - name: "vpc-endpoint-sg"
+    description: "Security group for VPC Endpoint to access ECR"
+    vpc_id: "vpc-0ea5f2c8c0344917a"
+    ingress:
+      - from_port: 443
+        to_port: 443
+        protocol: "tcp"
+        cidr_blocks:
+          - "10.66.1.0/24"
+    egress:
+      - from_port: 0
+        to_port: 0
+        protocol: "-1"
+        cidr_blocks:
+          - "0.0.0.0/0"
+    tags:
+      Name: "vpc-endpoint-sg"          
