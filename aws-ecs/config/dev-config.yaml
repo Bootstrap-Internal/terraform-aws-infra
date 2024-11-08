@@ -6,6 +6,7 @@ ecs:
     - "subnet-031cdc3d091136af9"
   app_name: "my-rnt-app"
   ecr_repo_name: "my-app-repo"
+  image_tag: "latest"
   ecs_service_name: "rnt-ecs-service"
   log_retention_in_days: 30
   cluster_id: "my-cluster-id"

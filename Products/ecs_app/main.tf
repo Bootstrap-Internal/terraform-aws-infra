@@ -20,6 +20,7 @@ module "task_definition" {
   ecs_task_execution_role_arn = var.ecs_task_execution_role_arn
   log_group_name              = module.log_group.log_group_name
   log_group_region            = var.ecs_configs.ecs.task_definition.log_group_region
+  image_tag                   = var.ecs_configs.ecs.image_tag
 }
 
 # Target Group for the Network Load Balancer

@@ -6,6 +6,7 @@ variable "ecs_configs" {
       region                        = string
       subnet_ids                    = list(string)
       ecr_repo_name                 = string
+      image_tag                     = string
       app_name                      = string
       ecs_service_name              = string
       log_retention_in_days         = number

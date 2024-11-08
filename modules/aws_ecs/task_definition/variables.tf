@@ -48,3 +48,7 @@ variable "ecr_repository_url" {
   description = "The ECR repo URL"
   type        = string
 }
+variable "image_tag" {
+  description = "The tag for docker imageL"
+  type        = string
+}
